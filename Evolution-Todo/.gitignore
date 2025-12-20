@@ -9,6 +9,21 @@ venv/
 env/
 .env/
 
+# Node.js/Next.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnp.cjs
+.pnp.loader.mjs
+.next/
+out/
+dist/
+build/
+*.log
+.env*
+
 # IDEs
 .vscode/
 .idea/

@@ -15,20 +15,20 @@ This guide provides quick instructions to set up and run the "Console Todo App" 
 
 1.  **Clone the Repository**:
     ```bash
-    git clone https://github.com/ayesha-aziz123/In-Memory-Python-Console-App.git
-    cd In-Memory-Python-Console-App
+    git clone https://github.com/ayesha-aziz123/Hackathon_II
+    cd Hackathon_II
     ```
     (Note: Replace with actual repository URL if different)
 
 2.  **Navigate to the Application Directory**:
-    The main application entry point is located in `src/todo/`.
+    The main application entry point is located in `phase-1-cli/src/todo/`.
     ```bash
     cd phase-1-cli/src/todo/
     ```
 
 ## Running the Application
 
-Once in the `src/todo/` directory, you can run the application directly using Python.
+Once in the `phase-1-cli/src/todo/` directory, you can run the application directly using Python.
 
 ### Available Commands
 

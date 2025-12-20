@@ -1,12 +1,20 @@
-# Console Todo App
+# Evolution-Todo: Full-Stack Web Application
 
 ## Project Title
-Console Todo App
+Evolution-Todo: From Console App to Full-Stack Web Application with Authentication
 
 ## Description
-The Console Todo App is an interactive command-line interface (CLI) application developed in Python, designed for simple and efficient task management. It utilizes the `rich` library to deliver a visually engaging and user-friendly experience directly within the terminal. This application enables users to perform core task operations such as adding, listing, updating, marking as complete/incomplete, and deleting tasks. It is important to note that all task data is stored in-memory, meaning tasks will not persist across different sessions once the application is closed. This project serves as a clear, self-contained example of a Python CLI application with basic data management.
+Evolution-Todo is a comprehensive todo application that demonstrates the evolution from a simple console-based application to a full-featured, multi-user web application. This project showcases two distinct phases of development:
+
+### Phase I: Console Todo App
+An interactive command-line interface (CLI) application developed in Python, designed for simple and efficient task management. It utilizes the `rich` library to deliver a visually engaging and user-friendly experience directly within the terminal. This application enables users to perform core task operations such as adding, listing, updating, marking as complete/incomplete, and deleting tasks. All task data is stored in-memory, meaning tasks will not persist across different sessions once the application is closed.
+
+### Phase II: Full-Stack Web Application
+A modern, multi-user web application built with Next.js 16+ (App Router) and FastAPI, featuring user authentication, database persistence, and a responsive interface. The app supports user registration, login, and isolated task lists per user. It includes advanced features like task priorities, tags, search, filtering, and due dates.
 
 ## Features
+
+### Phase I Features
 *   **Task Creation:** Easily add new tasks, providing a title and an optional detailed description.
 *   **Task Listing:** Display all current tasks in a well-formatted table, presenting each task's unique ID, title, description, completion status, and timestamps for creation and last update.
 *   **Task Modification:** Update the title and/or description of any existing task.
@@ -16,13 +24,33 @@ The Console Todo App is an interactive command-line interface (CLI) application 
 *   **Rich Terminal Output:** Enhanced readability and a modern aesthetic are provided by the `rich` library for all console output.
 *   **In-Memory Storage:** Tasks are managed within the application's runtime memory, offering quick operations for temporary task lists.
 
+### Phase II Features
+*   **User Authentication:** Secure JWT-based authentication using Better Auth for Next.js frontend and FastAPI backend
+*   **Multi-User Support:** Each user has isolated Todo lists with no cross-user data access
+*   **Full CRUD for Tasks:** Add, delete, update, view tasks with title, description, status
+*   **Task Status Management:** Mark tasks as complete/incomplete
+*   **Task Priorities:** Assign priorities (high/medium/low) to tasks
+*   **Task Tags:** Categorize tasks with tags (work/home, etc.)
+*   **Search Functionality:** Search tasks by keyword
+*   **Filter Functionality:** Filter tasks by status/priority/date
+*   **Sort Functionality:** Sort tasks by due date/priority/alphabetically
+*   **Recurring Tasks:** Auto-reschedule tasks (e.g., weekly)
+*   **Due Dates:** Assign due dates to tasks
+*   **Reminders:** Browser notifications for task reminders
+*   **Responsive Web Interface:** Modern UI with mobile-first design
+*   **Data Persistence:** Tasks stored in Neon PostgreSQL database
+
 ## Installation Instructions
 
 ### Prerequisites
-*   **Python 3.8+**: Ensure you have a compatible version of Python installed.
-*   **pip**: The Python package installer, typically included with Python installations.
+*   **Python 3.13+**: Required for backend services and console app
+*   **Node.js 18+**: Required for frontend Next.js application
+*   **npm or yarn**: Package manager for frontend dependencies
+*   **Git**: For version control and cloning the repository
 
 ### Steps
+
+#### For Phase I (Console App):
 1.  **Navigate to the project directory:**
     Open your terminal or command prompt and change your current directory to the location where you have the project files.
     ```bash
@@ -35,8 +63,35 @@ The Console Todo App is an interactive command-line interface (CLI) application 
     pip install -r requirements.txt
     ```
 
+#### For Phase II (Full-Stack Web App):
+1.  **Frontend Setup:**
+    ```bash
+    cd phase-2-web/frontend
+    npm install
+    ```
+
+2.  **Backend Setup:**
+    ```bash
+    cd phase-2-web/backend
+    pip install -r requirements.txt
+    ```
+
+3.  **Environment Configuration:**
+    Create a `.env` file in both frontend and backend directories with the following variables:
+    ```bash
+    # Frontend (.env.local)
+    NEXTAUTH_URL=http://localhost:3000
+    BETTER_AUTH_SECRET=your-secret-here
+    DATABASE_URL=postgresql://your-neon-db-connection-string
+
+    # Backend (.env)
+    BETTER_AUTH_SECRET=your-secret-here
+    DATABASE_URL=postgresql://your-neon-db-connection-string
+    ```
+
 ## Usage Instructions
 
+### Phase I Usage
 To launch the interactive Console Todo App, execute the `main.py` file from your terminal within the project's root directory:
 
 ```bash
@@ -44,7 +99,6 @@ python phase-1-cli/src/todo/main.py
 ```
 
 Upon successful execution, the application will display a welcome message and its main interactive menu:
-
 ```
 Welcome to the Interactive Todo CLI!
 
@@ -59,60 +113,82 @@ Todo CLI Menu:
 8. Reset Storage (DANGEROUS)
 ```
 
-Interact with the application by entering the number corresponding to your desired action and following any subsequent prompts.
+### Phase II Usage
+1.  **Start the Backend:**
+    ```bash
+    cd phase-2-web/backend
+    uvicorn src.main:app --reload --port 8000
+    ```
 
-*   **To Add a Task:** Enter `1`. You will be prompted to enter a task title and an optional description.
-*   **To List Tasks:** Enter `2`. All current tasks will be displayed in a formatted table.
-*   **To Update a Task:** Enter `3`. You will need to provide the task's ID and then new values for its title and/or description.
-*   **To Mark a Task Complete:** Enter `4`. Provide the ID of the task you wish to mark as complete.
-*   **To Mark a Task Incomplete:** Enter `5`. Provide the ID of the task you wish to mark as incomplete.
-*   **To Delete a Task:** Enter `6`. Provide the ID of the task you wish to remove.
-*   **To Exit the Application:** Enter `7`.
-*   **To Reset All Tasks:** Enter `8`. This option will clear all in-memory tasks after a confirmation.
+2.  **Start the Frontend:**
+    ```bash
+    cd phase-2-web/frontend
+    npm run dev
+    ```
+
+3.  **Access the Application:**
+    Open your browser and navigate to `http://localhost:3000`
 
 ## Project Structure
 
-The project is organized into a modular structure to separate concerns:
-
 ```
-Evolution-Todo/
-├───.gemini/
-├───.specify/
-├───history/
-├───specs/
-├───phase-1-cli/
-│   ├───src/
-│   │   └───todo/
-│   │       ├───__init__.py       # Initializes the todo package.
-│   │       ├───cli.py            # Defines the command-line interface logic and user interaction.
-│   │       ├───main.py           # The application's entry point, which starts the CLI.
-│   │       ├───models.py         # Defines the data structure for a Task using a dataclass.
-│   │       ├───services.py       # Contains the business logic for task operations (add, list, update, delete).
-│   │       └───storage.py        # Implements the in-memory storage mechanism for tasks.
-│   └───tests/
-│       ├───integration/
-│       │   └───test_cli.py       # Integration tests for the command-line interface.
-│       └───unit/
-│           └───test_services.py  # Unit tests for the services layer.
-├───.gitignore                # Specifies intentionally untracked files to ignore.
-├───CLAUDE.md                 # Documentation specific to Claude.
-├───GEMINI.md                 # Documentation specific to Gemini.
-└───requirements.txt          # Lists Python dependencies required by the project.
+evolution-of-todo/
+├── phase-1-cli/                  # Phase I: Console Todo App
+│   ├── src/
+│   │   └── todo/
+│   │       ├── __init__.py       # Initializes the todo package.
+│   │       ├── cli.py            # Defines the command-line interface logic and user interaction.
+│   │       ├── main.py           # The application's entry point, which starts the CLI.
+│   │       ├── models.py         # Defines the data structure for a Task using a dataclass.
+│   │       ├── services.py       # Contains the business logic for task operations (add, list, update, delete).
+│   │       └── storage.py        # Implements the in-memory storage mechanism for tasks.
+│   └── tests/
+├── phase-2-web/                  # Phase II: Full-Stack Web App
+│   ├── frontend/                 # Next.js 16+ App Router
+│   │   ├── src/app/
+│   │   ├── src/components/       # React components
+│   │   ├── src/lib/              # api.ts, auth utils, etc.
+│   │   └── drizzle/              # Drizzle schema + migrations
+│   ├── backend/
+│   │   ├── src/
+│   │   │   ├── models/           # SQLModel models
+│   │   │   ├── schemas/          # Pydantic schemas
+│   │   │   ├── routers/          # API routes
+│   │   │   └── main.py
+│   │   └── tests/                # pytest suite
+│   └── docker-compose.yml        # Docker setup
+├── specs/                        # Feature specifications
+├── .specify/                     # SpecKit Plus configuration
+├── history/                      # Development history
+│   ├── prompts/                  # Prompt history records
+│   └── adr/                      # Architecture decision records
+├── constitution.md               # Project constitution
+├── CLAUDE.md                     # Claude Code instructions
+├── GEMINI.md                     # Gemini Code instructions
+└── README.md                     # This file
 ```
-
-*   `phase-1-cli/src/todo/`: This directory contains the core application logic, broken down into modules for CLI, main execution, data models, services, and storage.
-*   `phase-1-cli/tests/`: Contains unit and integration tests to ensure the application's functionality.
-*   `requirements.txt`: Specifies the necessary Python packages for the project.
 
 ## Dependencies
 
-The Console Todo App relies on the following Python library:
-
+### Phase I Dependencies
 *   **`rich`**: A powerful Python library for writing rich text (colors, styles, markdown), tables, progress bars, and more to the terminal. It is used here to enhance the visual presentation of the CLI.
+
+### Phase II Dependencies
+*   **Frontend:**
+    *   Next.js 16+ with App Router
+    *   TypeScript
+    *   Tailwind CSS
+    *   Better Auth library
+    *   shadcn/ui components
+*   **Backend:**
+    *   FastAPI
+    *   SQLModel
+    *   PyJWT for JWT token handling
+    *   Neon PostgreSQL database
 
 ## Contribution Guidelines
 
-We welcome contributions to the Console Todo App! If you have suggestions for new features, improvements, or bug fixes, please consider the following steps:
+We welcome contributions to the Evolution-Todo project! If you have suggestions for new features, improvements, or bug fixes, please consider the following steps:
 
 1.  **Fork the Repository**: Start by forking the project repository to your GitHub account.
 2.  **Create a New Branch**: Create a dedicated branch for your feature or bug fix:
