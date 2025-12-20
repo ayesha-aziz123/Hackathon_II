@@ -29,7 +29,7 @@ from ..config import settings
 
 DATABASE_URL = settings.database_url
 
-engine = create_engine("postgresql://neondb_owner:npg_yDxLXQem9HF6@ep-raspy-hall-a1j5lrm2-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require", echo=True)
+engine = create_engine(DATABASE_URL, echo=True)
 
 def get_session_dep():
     """FastAPI dependency for database sessions"""
