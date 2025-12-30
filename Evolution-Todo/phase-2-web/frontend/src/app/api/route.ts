@@ -1,11 +1,8 @@
+import { NextResponse } from "next/server";
 
-export const fetchData = async (url: string) => {
-  const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error("Network response was not ok");
-    }
-    return response.json();
-
+export async function GET() {
+  return NextResponse.json({
+    success: true,
+    message: "API working"
+  });
 }
-
-

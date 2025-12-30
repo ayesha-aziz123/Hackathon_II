@@ -1,8 +1,10 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+"use client";
 
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import { motion, easeInOut } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
@@ -34,29 +36,61 @@ const buttonVariants = cva(
       size: "default",
     },
   }
-)
+);
 
-function Button({
-  className,
-  variant = "default",
-  size = "default",
-  asChild = false,
-  ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }) {
-  const Comp = asChild ? Slot : "button"
+const Button = React.forwardRef<
+  HTMLButtonElement,
+  React.ComponentProps<"button"> &
+    VariantProps<typeof buttonVariants> & {
+      asChild?: boolean;
+      loading?: boolean;
+    }
+>(({ className, variant, size, asChild = false, loading, ...props }, ref) => {
+  const Comp = asChild ? Slot : "button";
 
-  return (
+  // Animation variants for micro-interactions using consistent presets
+  const buttonVariantsAnim = {
+    rest: {
+      scale: 1,
+      filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))",
+    },
+    hover: {
+      scale: 1.03,
+      filter: "drop-shadow(0 6px 8px rgba(0, 0, 0, 0.15))",
+      transition: {
+        duration: 0.1,
+        ease:easeInOut,
+      },
+    },
+    tap: {
+      scale: 0.95,
+    },
+  };
+
+  const content = (
     <Comp
+      ref={ref}
       data-slot="button"
       data-variant={variant}
       data-size={size}
       className={cn(buttonVariants({ variant, size, className }))}
+      disabled={loading || props.disabled}
       {...props}
     />
-  )
-}
+  );
 
-export { Button, buttonVariants }
+  return (
+    <motion.div
+      variants={buttonVariantsAnim}
+      whileHover="hover"
+      whileTap="tap"
+      className="inline-block"
+    >
+      {content}
+    </motion.div>
+  );
+});
+
+Button.displayName = "Button";
+
+export { Button, buttonVariants };

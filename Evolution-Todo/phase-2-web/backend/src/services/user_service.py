@@ -4,7 +4,7 @@ from ..models.user import User
 from ..auth.password import hash_password, verify_password
 
 
-async def create_user(
+def create_user(
     session: Session, email: str, password: str, name: Optional[str] = None
 ) -> User:
     """
@@ -37,7 +37,7 @@ async def create_user(
     return user
 
 
-async def authenticate_user(
+def authenticate_user(
     session: Session, email: str, password: str
 ) -> Optional[User]:
     """
@@ -61,7 +61,7 @@ async def authenticate_user(
     return None
 
 
-async def get_user_by_email(session: Session, email: str) -> Optional[User]:
+def get_user_by_email(session: Session, email: str) -> Optional[User]:
     """
     Get a user by email.
 

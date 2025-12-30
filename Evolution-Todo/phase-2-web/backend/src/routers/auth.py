@@ -17,13 +17,26 @@ router = APIRouter(
 )
 
 @router.post("/register", response_model=AuthResponse)
-async def register(register_request: RegisterRequest, session: Session = Depends(get_session_dep)):
+def register(register_request: RegisterRequest, session: Session = Depends(get_session_dep)):
     """
     Register a new user with email and password
     """
     try:
+        # Validate input data
+        if not register_request.email or not register_request.password:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Email and password are required"
+            )
+
+        if len(register_request.password) < 6:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Password must be at least 6 characters long"
+            )
+
         # Create user using the service
-        user = await create_user(
+        user = create_user(
             session=session,
             email=register_request.email,
             password=register_request.password,
@@ -45,42 +58,67 @@ async def register(register_request: RegisterRequest, session: Session = Depends
             access_token=access_token,
             token_type="bearer"
         )
-    except ValueError:
+    except ValueError as e:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail="A user with this email already exists"
+            detail=str(e)  # Using the error message from the service
+        )
+    except Exception as e:
+        # Log the error for debugging
+        print(f"Registration error: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="An error occurred during registration"
         )
 
 
 @router.post("/login", response_model=AuthResponse)
-async def login(login_request: LoginRequest, session: Session = Depends(get_session_dep)):
+def login(login_request: LoginRequest, session: Session = Depends(get_session_dep)):
     """
     Authenticate user with email and password
     """
-    user = await authenticate_user(
-        session=session,
-        email=login_request.email,
-        password=login_request.password
-    )
+    try:
+        # Validate input data
+        if not login_request.email or not login_request.password:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Email and password are required"
+            )
 
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect email or password"
+        user = authenticate_user(
+            session=session,
+            email=login_request.email,
+            password=login_request.password
         )
 
-    # Create access token
-    access_token_expires = timedelta(minutes=settings.access_token_expire_minutes)
-    access_token = create_access_token(
-        data={"sub": user.id, "email": user.email},
-        expires_delta=access_token_expires
-    )
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Incorrect email or password"
+            )
 
-    # Return user data with access token
-    return AuthResponse(
-        id=user.id,
-        email=user.email,
-        name=user.name,
-        access_token=access_token,
-        token_type="bearer"
-    )
+        # Create access token
+        access_token_expires = timedelta(minutes=settings.access_token_expire_minutes)
+        access_token = create_access_token(
+            data={"sub": user.id, "email": user.email},
+            expires_delta=access_token_expires
+        )
+
+        # Return user data with access token
+        return AuthResponse(
+            id=user.id,
+            email=user.email,
+            name=user.name,
+            access_token=access_token,
+            token_type="bearer"
+        )
+    except HTTPException:
+        # Re-raise HTTP exceptions as-is
+        raise
+    except Exception as e:
+        # Log the error for debugging
+        print(f"Login error: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="An error occurred during login"
+        )

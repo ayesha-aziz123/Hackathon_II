@@ -54,7 +54,20 @@
       "Bash(python -c \"\nimport sys\nsys.path.insert(0, ''src'')\n\n# Test basic imports\ntry:\n    from src.main import app\n    print(''Main app: OK'')\nexcept Exception as e:\n    print(f''Main app: FAIL - {e}'')\n\ntry:\n    from src.routers import tasks, auth\n    print(''Routers: OK'')\nexcept Exception as e:\n    print(f''Routers: FAIL - {e}'')\n\ntry:\n    from src.models.user import User, UserCreate, UserRead\n    from src.models.task import Task, TaskCreate, TaskUpdate, TaskRead\n    print(''Models: OK'')\nexcept Exception as e:\n    print(f''Models: FAIL - {e}'')\n\ntry:\n    from src.auth.password import hash_password, verify_password\n    print(''Password utilities: OK'')\nexcept Exception as e:\n    print(f''Password utilities: FAIL - {e}'')\n\ntry:\n    from src.services.user_service import create_user, authenticate_user\n    print(''User service: OK'')\nexcept Exception as e:\n    print(f''User service: FAIL - {e}'')\n\ntry:\n    from src.services.task_service import create_task, get_user_tasks\n    print(''Task service: OK'')\nexcept Exception as e:\n    print(f''Task service: FAIL - {e}'')\n\nprint(''Import tests completed.'')\n\")",
       "Bash(python -c \"\nimport sys\nsys.path.insert(0, ''src'')\n\nfrom src.auth.password import hash_password, verify_password\n\n# Test password functionality\npassword = ''testpassword123''\nhashed = hash_password(password)\nprint(''Password hashing: OK'')\n\nis_valid = verify_password(password, hashed)\nprint(f''Password verification: {is_valid}'')\n\nis_invalid = verify_password(''wrongpassword'', hashed)\nprint(f''Password verification (wrong): {not is_invalid}'')\nprint(''Password functionality: OK'')\n\")",
       "Bash(ls -la \"C:/Users/HP/Desktop/Hackathon-II/Evolution-Todo/phase-2-web/frontend/src/app/(auth)/sign-in/\")",
-      "Bash(ls -la \"C:/Users/HP/Desktop/Hackathon-II/Evolution-Todo/phase-2-web/frontend/src/app/(auth)/\")"
+      "Bash(ls -la \"C:/Users/HP/Desktop/Hackathon-II/Evolution-Todo/phase-2-web/frontend/src/app/(auth)/\")",
+      "Bash(git checkout 003-frontend-ui-redesign)",
+      "Bash(bash .specify/scripts/bash/setup-plan.sh --json)",
+      "Bash(cat \"C:/Users/HP/Desktop/Hackathon-II/Evolution-Todo/specs/003-frontend-ui-redesign/plan.md\")",
+      "Skill(sp.specify)",
+      "Bash(mkdir -p phase-2-web/frontend/src/components/tasks)",
+      "Bash(mkdir -p phase-2-web/frontend/src/components/ui)",
+      "Bash(.specify/scripts/bash/check-prerequisites.sh --json --require-tasks)",
+      "WebSearch",
+      "Bash(dir \"C:\\\\Users\\\\HP\\\\Desktop\\\\Hackathon-II\\\\Evolution-Todo\\\\phase-2-web\\\\frontend\\\\src\\\\components\\\\dashboard\")",
+      "Bash(dir \"C:\\\\Users\\\\HP\\\\Desktop\\\\Hackathon-II\\\\Evolution-Todo\\\\phase-2-web\\\\frontend\\\\src\\\\components\\\\tasks\")",
+      "Bash(dir \"C:\\\\Users\\\\HP\\\\Desktop\\\\Hackathon-II\\\\Evolution-Todo\\\\phase-2-web\\\\frontend\\\\src\\\\components\\\\ui\")",
+      "Bash(find \"C:\\\\Users\\\\HP\\\\Desktop\\\\Hackathon-II\\\\Evolution-Todo\\\\phase-2-web\\\\backend\\\\src\" -name \"*.py\" -exec grep -l \"user\\\\|profile\\\\|settings\" {} ;)",
+      "Bash(dir \"C:\\\\Users\\\\HP\\\\Desktop\\\\Hackathon-II\\\\Evolution-Todo\\\\phase-2-web\\\\backend\\\\src\\\\routers\"\")"
     ]
   }
 }

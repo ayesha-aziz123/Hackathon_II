@@ -2,9 +2,13 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSession, signOut, authClient } from '@/lib/auth'; // Import useSession and signOut from '@/lib/auth'
+import { useSession, authClient } from '@/lib/auth'; 
 
-export default function UserButton() {
+type UserButtonProps = {
+  user: any; // ya proper User type
+};
+
+export default function UserButton({ user }: UserButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const { data: session } = useSession(); // Use useSession from '@/lib/auth'
