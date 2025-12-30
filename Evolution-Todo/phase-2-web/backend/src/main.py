@@ -18,6 +18,7 @@ app.add_middleware(
         "http://localhost:8000",
         "http://localhost:3000/dashboard/tasks",
         "http://localhost:3000",
+        "https://fullstack-todo-app-three-six.vercel.app/",
         "http://127.0.0.1:3000",
     ],
     allow_credentials=True,
