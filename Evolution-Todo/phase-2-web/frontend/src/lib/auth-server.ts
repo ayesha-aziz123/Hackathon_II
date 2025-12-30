@@ -26,7 +26,7 @@ export const auth = betterAuth({
     enabled: true,
     requireEmailVerification: false,
     providers: {
-      signIn: async (email, password) => {
+      signIn: async (email:string, password:string) => {
         try {
           const response = await axios.post(`${FASTAPI_URL}/auth/login`, {
             email,
@@ -41,14 +41,14 @@ export const auth = betterAuth({
             name: name,
             token: access_token,
           };
-        } catch (error: any) {
+        } catch (error) {
           if (axios.isAxiosError(error) && error.response) {
             throw new Error(error.response.data.detail || "Sign in failed");
           }
           throw new Error("An unexpected error occurred during sign in.");
         }
       },
-      signUp: async (email, password, name) => {
+      signUp: async (email:string, password:string, name:string) => {
         try {
           const response = await axios.post(`${FASTAPI_URL}/auth/register`, {
             email,
@@ -64,7 +64,7 @@ export const auth = betterAuth({
             name: userName,
             token: access_token,
           };
-        } catch (error: any) {
+        } catch (error) {
           if (axios.isAxiosError(error) && error.response) {
             throw new Error(error.response.data.detail || "Sign up failed");
           }

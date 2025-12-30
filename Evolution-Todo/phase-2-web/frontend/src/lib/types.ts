@@ -10,8 +10,6 @@ export interface Task {
   due_date?: string; // ISO date string
   completed: boolean;
   completed_at?: string | null; // ISO date string
-  // recurrence_pattern?: 'daily' | 'weekly' | 'monthly';
-  // recurrence_end_date?: string; // ISO date string
   notification_time_before?: number; // Minutes before due time
   created_at: string; // ISO date string
   updated_at: string; // ISO date string
@@ -23,8 +21,6 @@ export interface TaskCreate {
   priority?: 'high' | 'medium' | 'low';
   tags?: string;
   due_date?: string; // ISO date string
-  // recurrence_pattern?: 'daily' | 'weekly' | 'monthly';
-  // recurrence_end_date?: string; // ISO date string
   notification_time_before?: number; // Minutes before due time
 }
 
