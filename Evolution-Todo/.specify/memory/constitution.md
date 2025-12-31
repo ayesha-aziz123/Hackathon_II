@@ -2,12 +2,12 @@
 
 ## Version
 
-**Constitution Version:** 1.2.0
+**Constitution Version:** 1.3.0
 
 ## Ratification
 
 **Ratification Date:** 2025-12-11
-**Last Amended:** 2025-12-11
+**Last Amended:** 2025-12-31
 
 ## Project Overview
 
@@ -412,6 +412,29 @@ The project follows a monorepo structure with clear separation:
 - Demo video link under 90 seconds showing key functionalities
 - Test suite demonstrating application reliability
 
+## Phase III Mandatory Requirements
+
+### AI Chatbot Functionality (All Required)
+
+All AI chatbot features MUST be implemented:
+
+1. **Conversational Interface** - Users MUST be able to manage tasks through natural language conversation
+2. **Natural Language Task Management** - All 5 Basic Level features (Add, List, Complete, Delete, Update) MUST work via natural language commands
+3. **Conversation Persistence** - All conversations MUST be persisted to database (stateless server architecture)
+4. **Streaming Responses** - Chat responses MUST stream in real-time using Server-Sent Events (SSE)
+5. **Conversation Context** - Chatbot MUST maintain conversation context across multiple messages
+6. **Error Handling** - Chatbot MUST provide helpful error messages when commands cannot be understood
+7. **Action Confirmations** - Chatbot MUST confirm all successful task operations with friendly responses
+
+### Technology Stack (All Required)
+
+- **Frontend Chat Interface**: OpenAI ChatKit MUST be used for the conversational UI
+- **Backend AI Framework**: OpenAI Agents SDK MUST be used for AI logic and agent orchestration
+- **MCP Server**: Official MCP SDK MUST be used to build MCP server with task operations as tools
+- **Database Models**: New models MUST be added: Conversation and Message (in addition to existing Task model)
+- **Stateless Architecture**: Chat endpoint MUST be stateless - all conversation state persisted to database
+- **Authentication**: Better Auth JWT authentication MUST be used (same as Phase 2)
+
 ## Constraints
 
 ### Development Constraints
@@ -481,3 +504,5 @@ Regular compliance reviews should be conducted to ensure:
 - CI/CD pipeline compliance
 - Reusable intelligence implementation
 - Frontend and backend development standard compliance
+
+
