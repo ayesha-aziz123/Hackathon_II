@@ -823,7 +823,6 @@ All secrets and configuration must be managed through environment variables acro
   BETTER_AUTH_SECRET=your-secret-here
   DATABASE_URL=postgresql://...
   NEXTAUTH_URL=http://localhost:3000
-  OPENAI_API_KEY=your-openai-api-key
 ```
 
 **Rationale:** To prevent security breaches and maintain configuration flexibility across environments including AI services.

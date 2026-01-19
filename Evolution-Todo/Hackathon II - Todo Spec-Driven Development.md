@@ -843,11 +843,6 @@ NEXT\_PUBLIC\_OPENAI\_DOMAIN\_KEY=your-domain-key-here
 * **Horizontal scaling:** Load balancer can route to any backend  
 * **Testability:** Each request is independent and reproducible
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 002-fullstack-todo-auth
 # **Phase IV: Local Kubernetes Deployment (Minikube, Helm Charts, kubectl-ai, Kagent, Docker Desktop, and Gordon)**
 
 *Cloud Native Todo Chatbot with Basic Level Functionality*
@@ -904,6 +899,22 @@ Can Spec-Driven Development be used for infrastructure automation, and how we ma
 2. [ChatGPT Progressive Learning Conversation](https://chatgpt.com/share/6924914a-43dc-8001-8f67-af29c4d9617e)  
 3. [Spec-Driven Cloud-Native Architecture: Governing AI Agents for Managed Services with Claude Code and SpecKit](https://claude.ai/public/artifacts/6025a232-6ebe-4c42-bb51-02dbd4603e18)  
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # **Phase V: Advanced Cloud Deployment**
