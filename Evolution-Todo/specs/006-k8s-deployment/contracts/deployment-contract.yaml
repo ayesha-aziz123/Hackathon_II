@@ -1,0 +1,151 @@
+# API Contract: Kubernetes Deployment for AI Todo Chatbot
+
+## Deployment API Specifications
+
+### Frontend Service Contract
+```
+Service: evolution-todo-frontend
+Port: 80/TCP (NodePort assigned by Kubernetes)
+Target: 3000/TCP (Next.js application)
+
+Health Endpoint: GET /
+Expected Response: 200 OK with HTML content
+Timeout: 5 seconds
+```
+
+### Backend Service Contract
+```
+Service: evolution-todo-backend
+Port: 80/TCP (ClusterIP)
+Target: 8000/TCP (FastAPI application)
+
+Health Endpoint: GET /health
+Expected Response: 200 OK with {"status": "healthy"}
+Ready Endpoint: GET /ready
+Expected Response: 200 OK with {"status": "ready"}
+Timeout: 5 seconds
+```
+
+## Environment Variables Contract
+
+### Frontend Environment Variables
+```
+NEXT_PUBLIC_API_URL: URL pointing to backend service
+BETTER_AUTH_SECRET: Shared secret for JWT verification
+NEXTAUTH_URL: Base URL for Next.js application
+NODE_ENV: Environment mode (production/development)
+```
+
+### Backend Environment Variables
+```
+DATABASE_URL: Neon PostgreSQL connection string
+BETTER_AUTH_SECRET: Shared secret for JWT verification
+COHERE_API_KEY: API key for Cohere AI service
+HOST: Host to bind to (typically 0.0.0.0)
+PORT: Port to listen on (typically 8000)
+```
+
+## Kubernetes Resource Contract
+
+### Resource Limits and Requests
+```
+Frontend Container:
+  limits:
+    memory: 512Mi
+    cpu: 200m
+  requests:
+    memory: 256Mi
+    cpu: 100m
+
+Backend Container:
+  limits:
+    memory: 512Mi
+    cpu: 200m
+  requests:
+    memory: 256Mi
+    cpu: 100m
+```
+
+### Health Probe Contract
+```
+Frontend Liveness Probe:
+  path: /
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+Frontend Readiness Probe:
+  path: /
+  initialDelaySeconds: 5
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 3
+
+Backend Liveness Probe:
+  path: /health
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+Backend Readiness Probe:
+  path: /ready
+  initialDelaySeconds: 5
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 3
+```
+
+## Network Contract
+
+### Service Communication
+```
+Frontend → Backend:
+  Protocol: HTTP
+  Service Name: backend-service
+  Port: 80
+  Expected Response Time: <3 seconds
+```
+
+### External Access Contract
+```
+Ingress:
+  Host: evolution-todo.local
+  Path: /
+  Backend Service: frontend-service
+  Backend Port: 80
+```
+
+## Security Contract
+
+### Secret Management
+```
+Frontend Secrets:
+  - BETTER_AUTH_SECRET: JWT verification key
+
+Backend Secrets:
+  - BETTER_AUTH_SECRET: JWT verification key
+  - DATABASE_URL: PostgreSQL connection string
+  - COHERE_API_KEY: AI service API key
+```
+
+## Deployment Contract
+
+### Replica Requirements
+```
+Frontend Deployment:
+  minReplicas: 2
+  maxReplicas: 10 (for HPA)
+
+Backend Deployment:
+  minReplicas: 2
+  maxReplicas: 10 (for HPA)
+```
+
+### Availability Requirements
+```
+Expected Uptime: 99% during demonstration
+Rolling Update Strategy: maxUnavailable: 1, maxSurge: 1
+Graceful Shutdown: 30 seconds
+```

@@ -1,615 +1,11 @@
-<<<<<<< HEAD
 <!--
 Sync Impact Report:
-Version change: template -> 1.0.0
-List of modified principles: None (initial setup)
-Added sections: Versioning and date information
+Version change: 1.3.0 -> 1.4.0
+List of modified principles: Added Phase IV section
+Added sections: Phase IV: Kubernetes Deployment Principles
 Removed sections: None
 Templates requiring updates:
-  - .specify/templates/plan-template.md ⚠ pending
-  - .specify/templates/spec-template.md ⚠ pending
-  - .specify/templates/tasks-template.md ⚠ pending
-  - .claude/commands/sp.adr.md ⚠ pending
-  - .claude/commands/sp.analyze.md ⚠ pending
-  - .claude/commands/sp.checklist.md ⚠ pending
-  - .claude/commands/sp.clarify.md ⚠ pending
-  - .claude/commands/sp.constitution.md ⚠ pending
-  - .claude/commands/sp.git.commit_pr.md ⚠ pending
-  - .claude/commands/sp.implement.md ⚠ pending
-  - .claude/commands/sp.phr.md ⚠ pending
-  - .claude/commands/sp.plan.md ⚠ pending
-  - .claude/commands/sp.specify.md ⚠ pending
-  - .claude/commands/sp.tasks.md ⚠ pending
-  - .gemini/commands/sp.adr.toml ⚠ pending
-  - .gemini/commands/sp.analyze.toml ⚠ pending
-  - .gemini/commands/sp.checklist.toml ⚠ pending
-  - .gemini/commands/sp.clarify.toml ⚠ pending
-  - .gemini/commands/sp.constitution.toml ⚠ pending
-  - .gemini/commands/sp.git.commit_pr.toml ⚠ pending
-  - .gemini/commands/sp.implement.toml ⚠ pending
-  - .gemini/commands/sp.phr.toml ⚠ pending
-  - .gemini/commands/sp.plan.toml ⚠ pending
-  - .gemini/commands/sp.specify.toml ⚠ pending
-  - .gemini/commands/sp.tasks.toml ⚠ pending
-  - README.md ⚠ pending
-  - CLAUDE.md ⚠ pending
-Follow-up TODOs: None
--->
-# Constitution — Phase I: In-Memory Python Todo CLI App
-
-## 1. Purpose
-This constitution defines the rules for Phase I of the "Evolution of Todo" project.
-All implementation must be spec-driven using Claude CLI + SpecKit Plus.
-The developer will not write code manually; Claude must generate all source code from specs.
-
-## 2. Project Scope
-Create an in-memory Python CLI Todo application with the following features:
-- Add Task
-- View Tasks
-- Update Task
-- Delete Task
-- Mark Complete / Incomplete
-
-All tasks must exist only in memory (no database).
-Application must run in a terminal using Python 3.13+.
-
-## 3. Architecture Rules
-- Source code lives under `phase-1-cli/src/todo/`.
-- Keep modules small and single-responsibility.
-- Use:
-  - `models.py` → task model + dataclasses or simple classes
-  - `storage.py` → in-memory storage abstraction
-  - `services.py` → business logic
-  - `cli.py` → command-line UI
-  - `main.py` → entrypoint
-
-## 4. Data Model
-A Task must include:
-- `id: int`
-- `title: str`
-- `description: str`
-- `completed: bool` (default False)
-- `created_at: str`
-- `updated_at: str`
-
-Timestamps must be ISO formatted using Python datetime.
-
-## 5. Coding Standards
-- Python 3.13
-- Type hints required
-- Docstrings for all classes/functions
-- No external libraries
-- Clean, readable, single-purpose functions
-- No global mutable state outside the storage component
-
-## 6. CLI Requirements
-- User can add, list, update, delete, complete, incomplete tasks
-- Simple commands: `add`, `list`, `update <id>`, `delete <id>`, `complete <id>`, `incomplete <id>`, `exit`, `help`
-- CLI must print clear messages and handle invalid input gracefully
-
-## 7. Tests
-- Tests live in `phase-1-cli/tests/`
-- Use pytest style
-- Each feature must have at least one test
-- Storage must reset per test (isolated state)
-
-## 8. Spec-Driven Rules
-Claude must follow this workflow:
-1. `/sp.specify` → feature spec
-2. `/sp.plan`
-3. `/sp.task`
-4. `/sp.implement`
-
-Claude must:
-- Not hallucinate files outside this structure
-- Follow this constitution for every generation
-- Update code only through the spec-driven workflow
-- Generate tests first, then implementation
-
-## 9. Completion Criteria
-Phase I is complete when:
-- All 5 features are implemented
-- All tests pass
-- CLI works end-to-end
-- Repo contains: Constitution.md, specs/, phase-1-cli/src/, phase-1-cli/tests/, README.md, CLAUDE.md
-
-**Version**: 1.0.0 | **Ratified**: 2025-12-07 | **Last Amended**: 2025-12-07
-=======
-# Project Constitution: Evolution-Todo Full-Stack Web Application
-
-## Version
-
-**Constitution Version:** 1.2.0
-
-## Ratification
-
-**Ratification Date:** 2025-12-11
-**Last Amended:** 2025-12-11
-
-## Project Overview
-
-This Constitution governs Phase II of the Todo Evolution project: a full-stack web application that evolves the Todo app into a modern, multi-user system with authentication, database persistence, and a responsive interface. The app must support user registration, login, and isolated task lists per user. All development must follow Spec-Driven Development using Spec-Kit Plus, where specifications are refined iteratively to generate code without manual coding.
-
-## Guiding Principles
-
-### Principle 1: Spec-Driven Development Mandate
-
-All code must be generated through refined specifications. Manual editing of generated source code is STRICTLY PROHIBITED. If code is incorrect, the corresponding spec (spec.md) MUST be refined and the generation process repeated. ALL source code (/frontend/, /backend/) MUST be generated by Claude Code by refining Markdown specifications in the /specs/ folder. This ensures traceability, consistency, and quality across the codebase.
-
-**Rationale:** To maintain architectural integrity and ensure all code is specification-driven rather than ad-hoc implementation.
-
-### Principle 2: Reusable Intelligence Integration
-
-Incorporate subagents and agent skills where applicable for modular, reusable components. To qualify for the "+200 Bonus Points," the project MUST create and use at least one reusable intelligence component. This can be either:
-
-- An AI Subagent (e.g., `specification-review-subagent`) defined using the Persona+Questions+Principles (P+Q+P) pattern
-- An Agent Skill (e.g., `cloud-native-blueprint-skill`)
-  This component must be documented in `/specs/reusable-intelligence/` and referenced in implementation. This ensures that the system is built with future extensibility in mind and maximizes the value of AI-assisted development.
-
-**Rationale:** To create a maintainable and scalable architecture that leverages AI capabilities effectively.
-
-### Principle 3: Clean Code Standards
-
-Follow clean code principles: modularity, separation of concerns, readability, and maintainability. Code must be well-structured, documented where necessary, and follow established patterns for the technology stack.
-
-**Rationale:** To ensure long-term maintainability and team collaboration effectiveness.
-
-### Principle 4: Security-First Architecture
-- Frontend Authentication: Next.js with Better Auth library ✅
-- Better Auth Setup: runs as Next.js API routes ✅
-- Token Management: Frontend stores JWT token ✅
-- Backend Verification: FastAPI middleware verifies JWT ✅
-
-Prioritize security in all implementations with JWT-based authentication. User data isolation must be absolute.
-
-**Authentication Architecture:**
-- **Frontend Authentication:** Next.js with Better Auth library handles user registration, login, and session management
-- **Better Auth Setup:** Better Auth runs as Next.js API routes at `/app/api/auth/[...all]/route.ts` and issues JWT tokens on successful login
-- **Token Management:** Frontend stores JWT token (in HTTP-only cookies or secure storage) and attaches it to every FastAPI request as `Authorization: Bearer <token>`
-- **Backend Verification:** FastAPI middleware verifies JWT signature using shared `BETTER_AUTH_SECRET` environment variable (NEVER hardcode this value)
-- **User Isolation:** FastAPI extracts `user_id` from validated JWT token and filters ALL database queries by this authenticated user ID
-- **Security Principle:** User ID comes from JWT token ONLY, never from URL parameters (prevents unauthorized access)
-
-**Rationale:** To protect user data, maintain trust, and ensure proper separation between authentication (Next.js) and API logic (FastAPI).
-
-### Principle 5: Usability and Responsiveness
-
-Emphasize usability: the frontend must be responsive and intuitive. User experience must be prioritized in all interface decisions.
-
-**Rationale:** To ensure user adoption and satisfaction with the application.
-
-### Principle 6: Comprehensive Feature Integration
-
-Integrate all levels of Todo features: Basic (Add, Delete, Update, View, Mark Complete), Intermediate (Priorities & Tags, Search & Filter, Sort Tasks), and Advanced (Recurring Tasks, Due Dates & Reminders with browser notifications).
-
-**Rationale:** To provide a complete and feature-rich task management solution.
-
-### Principle 7: Cloud-Native Blueprints
-
-Develop and use Cloud-Native Blueprints via Agent Skills for spec-driven deployment preparation.
-
-**Rationale:** To align with future phases and earn bonus points for advanced AI-driven deployment practices.
-
-### Principle 8: Development Tools Compliance
-
-All development processes must use official tools and standards:
-
-- **GitHub Operations:** All commits/pushes MUST go through official GitHub MCP server
-- **Code Context:** Use Context7 MCP server for codebase analysis and understanding
-- **Authentication Library:** Use Better Auth npm package (NOT an MCP server) for authentication
-- **Direct CLI Commands:** Direct git commands are forbidden for project code
-
-**Note:** Better Auth is a library installed via npm (`npm install better-auth`), not an MCP server. MCP servers are used for tooling, not application dependencies.
-
-**Rationale:** To ensure standardized development practices and maximize scoring potential.
-
-### Principle 9: Strict Folder Structure Compliance
-
-The project MUST follow the exact folder structure as mandated by the hackathon requirements:
-
-```
-evolution-of-todo/
-├── phase-2-web/                  # Root folder for Phase 2
-│   ├── frontend/                 # Next.js 16+ App Router
-│   │   ├── src/app/
-│   │   ├── src/components/       # React components
-│   │   ├── src/lib/              # api.ts, auth utils,db etc.
-│   │   └── drizzle/              # Drizzle schema + migrations
-│   ├── backend/
-│   │   ├── src/
-│   │   │   ├── models/           # SQLModel models
-│   │   │   ├── schemas/          # Pydantic schemas
-│   │   │   ├── routers/          # API routes
-│   │   │   └── main.py
-│   │   └── tests/                # pytest suite
-│   └── docker-compose.yml        # Docker setup
-|
-├── specs/                        # Feature specifications
-│   ├── 001-console-todo-app/
-│   └── 002-fullstack-web-app/
-├── .spec-kit/
-│   └── config.yaml
-├── constitution.md
-├── CLAUDE.md
-├── README.md
-└──history/                 # Development history
-    ├── prompts/            # Prompt history records
-    └── adr/                # Architecture decision records
-```
-
-**Rationale:** To ensure compliance with hackathon requirements and maintain consistent project organization.
-
-### Principle 10: CI/CD Pipeline Compliance
-
-All deployments must follow the established CI/CD pipeline rules:
-
-- Frontend deployment branch: phase_2
-- Backend API deployment branch: api.phase_2
-- No manual Vercel/Netlify deploys allowed — everything via GitHub Actions
-
-**Rationale:** To ensure consistent and automated deployment processes.
-
-### Principle 11: Frontend Development Standards
-
-Frontend development must adhere to these standards:
-
-- **Framework:** Next.js 16+ with App Router, TypeScript, and Tailwind CSS
-- **Authentication:** Better Auth library configured with JWT plugin in `/app/api/auth/[...all]/route.ts`
-- **API Communication:** All backend calls via centralized `/src/lib/api.ts` client with automatic JWT attachment
-- **Component Architecture:** Server Components by default; Client Components only for interactivity
-- **Better Auth Configuration:**
-```typescript
-  // app/api/auth/[...all]/route.ts
-  import { auth } from '@/lib/auth';
-  export const { GET, POST } = auth.handler;
-```
-
-**Rationale:** To ensure consistent frontend architecture and proper authentication integration.
-
-### Principle 12: Backend Development Standards
-
-Backend development must adhere to these standards:
-
-- **Framework:** FastAPI with Python 3.13+, SQLModel, and Neon PostgreSQL
-- **JWT Verification:** Middleware that verifies JWT tokens using `BETTER_AUTH_SECRET` from environment
-- **User Isolation:** All database queries automatically filtered by authenticated `user_id` from JWT
-- **API Endpoints:** Six endpoints under `/api/tasks` (user ID from JWT, NOT URL)
-- **Error Handling:** Proper HTTP status codes (401 for auth errors, 404 for not found, 403 for forbidden)
-
-**Example FastAPI Middleware:**
-```python
-from fastapi import Depends, HTTPException, Header
-from jose import jwt, JWTError
-
-async def get_current_user(authorization: str = Header(None)):
-    if not authorization or not authorization.startswith("Bearer "):
-        raise HTTPException(401, "Missing or invalid token")
-    token = authorization.split(" ")[1]
-    try:
-        payload = jwt.decode(token, settings.BETTER_AUTH_SECRET, algorithms=["HS256"])
-        user_id = payload.get("sub")
-        return user_id
-    except JWTError:
-        raise HTTPException(401, "Invalid token")
-```
-
-**Rationale:** To ensure secure, user-isolated API operations.
-
-
-
-### Principle 13: Environment Variable Management
-
-All secrets and configuration must be managed through environment variables:
-
-- **Never commit secrets** to Git (use `.gitignore` for `.env` files)
-- **Required Environment Variables:**
-  - `BETTER_AUTH_SECRET` (shared between Next.js and FastAPI)
-  - `DATABASE_URL` (Neon PostgreSQL connection string)
-  - `NEXTAUTH_URL` (Next.js app URL)
-- **Development Setup:** Document required environment variables in README.md
-- **Example `.env.example` file:**
-```
-  BETTER_AUTH_SECRET=your-secret-here
-  DATABASE_URL=postgresql://...
-  NEXTAUTH_URL=http://localhost:3000
-```
-
-**Rationale:** To prevent security breaches and maintain configuration flexibility across environments.
-
-
-### FRONTEND CLAUDE.MD RULES (MANDATORY)
-
-The `/frontend/CLAUDE.md` file MUST contain these patterns:
-
-- **Stack:** Next.js 16+ (App Router), TypeScript, Tailwind CSS
-- **Authentication:** Better Auth library (`npm install better-auth`) with JWT plugin
-- **Auth Routes:** Better Auth API routes at `/app/api/auth/[...all]/route.ts`
-- **API Client:** Centralized client at `/src/lib/api.ts` that:
-  - Reads JWT token from Better Auth session
-  - Attaches `Authorization: Bearer <token>` to all requests
-  - Handles token refresh automatically
-- **Component Patterns:**
-  - Server Components by default
-  - Client Components only for interactivity (`"use client"` directive)
-- **File Structure:**
-  - Components: `/src/components/`
-  - Pages: `/src/app/`
-  - Auth config: `/src/lib/auth.ts`
-  - API client: `/src/lib/api.ts`
-- **Example API Call:**
-```typescript
-  import { api } from '@/lib/api';
-  const tasks = await api.getTasks(); // JWT attached automatically
-```
-- **Styling:** Tailwind CSS only, no inline styles
-
-###  BACKEND CLAUDE.MD RULES (MANDATORY)
-The `/backend/CLAUDE.md` file MUST contain these exact patterns:
-*   **Stack:** FastAPI, SQLModel, Neon PostgreSQL.
-*   **Structure:** `main.py` (app entry), `models.py` (SQLModel), `routes/` (API handlers), `db.py` (connection).
-*   **API Conventions:** All routes under `/api/`. Use Pydantic models for request/response validation.
-*   **Database:** Connection string from `DATABASE_URL` env variable. Use SQLModel for all operations.
-*   **Auth:** JWT verification middleware on every request. Extract user ID from token.
-*   **Run Command:** `uvicorn main:app --reload --port 8000`
-*   **Errors:** Use `HTTPException` with appropriate status codes.
-
-## Technology Stack
-
-### Frontend Stack
-
-- **Framework:** Next.js 16+ with TypeScript and App Router
-- **Styling:** Tailwind CSS for responsive styling
-- **Authentication:** Better Auth library (npm package) for JWT-based authentication
-- **API Client:** Centralized API client in `/src/lib/api.ts` with automatic JWT token attachment
-- **Database ORM:** Drizzle ORM for database interactions
-
-### Backend Stack
-
-- **Framework:** FastAPI with Python 3.13+
-- **ORM:** SQLModel for database models and queries
-- **Authentication:** JWT token verification middleware (using PyJWT library)
-- **Shared Secret:** `BETTER_AUTH_SECRET` environment variable shared with Next.js Better Auth
-
-### Database Stack
-
-- **Database:** Neon Serverless PostgreSQL
-- **ORM:** SQLModel for backend, Drizzle for frontend
-
-### Development Tools
-
-- **Python Management:** UV for Python project management
-- **Containerization:** Docker for containerization when needed
-- **Spec-Driven Development:** Spec-Kit Plus for specification-driven development
-
-## Architecture
-
-### Monorepo Structure
-
-The project follows a monorepo structure with clear separation:
-
-- **/frontend:** Contains Next.js app with src/app for pages, src/components for UI elements, src/lib for utilities (auth, API clients, DB), and drizzle for schema
-- **/backend:** Contains FastAPI app with src/models for SQLModel models, src/schemas for Pydantic schemas, src/routers for API endpoints, and tests for pytest
-- **Root level:** Shared specs, configurations, documentation, and docker-compose.yml for setup
-
-
-
-### Technical Constraints
-
-- **API Endpoints:** Must implement the exact six (6) REST endpoints as specified in hackathon documentation:
-```
-  GET    /api/{user_id}/tasks
-  POST   /api/{user_id}/tasks
-  GET    /api/{user_id}/tasks/{id}
-  PUT    /api/{user_id}/tasks/{id}
-  DELETE /api/{user_id}/tasks/{id}
-  PATCH  /api/{user_id}/tasks/{id}/complete
-```
-  
-  **Security Requirement:** Despite `{user_id}` being in the URL, backend MUST verify that URL user_id matches JWT token user_id on every request. This prevents users from accessing other users' data by manipulating the URL.
-  
-
-### Frontend Architecture
-
-- Next.js App Router for page routing and server-side rendering
-- Component-based architecture with reusable UI components
-- Client-side state management with proper error handling
-- Responsive design following mobile-first principles
-
-## Development Commands
-
-### Running the Application
-
-- **Frontend Development:** `cd phase-2-web/frontend && npm run dev`
-- **Backend Development:** `cd phase-2-web/backend && uvicorn main:app --reload --port 8000`
-- **Database Migrations:** `cd phase-2-web/frontend && npx drizzle-kit migrate`
-  **Backend Tests:** `cd backend && uv run pytest`
-- **Run Tests:**
-  - Frontend: `cd phase-2-web/frontend && npm run test`
-  - Backend: `cd phase-2-web/backend && pytest tests/`
-- **Docker Compose:** `docker-compose up` (from `phase-2-web/`)
-
-## Features
-
-
-### Authentication Features
-
-- User Registration: Secure account creation with validation using Better Auth
-- User Login: JWT-based authentication with token management via Better Auth
-- User Logout: Proper session termination and token invalidation
-- **Token Flow:** 
-  - Frontend attaches JWT as `Authorization: Bearer <token>` header
-  - Backend verifies token using `BETTER_AUTH_SECRET` from environment variables
-  - All secrets MUST be stored in `.env` files (gitignored)
-  - NEVER hardcode secrets in code or documentation
-- **User Isolation:** Backend filters all queries by authenticated `user_id` from JWT token
-
-### Multi-User Support
-
-- Each user has isolated Todo lists with no cross-user data access
-- User-specific data isolation at the database and application levels
-- Proper authorization checks on all user data operations
-
-### Task Management Features
-
-- Full CRUD for Tasks: Add, delete, update, view tasks with title, description, status
-- Task Status Management: Mark tasks as complete/incomplete
-- Data persistence with proper validation and error handling
-
-### Intermediate Features
-
-- Task Priorities: Assign priorities (high/medium/low) to tasks
-- Task Tags: Categorize tasks with tags (work/home, etc.)
-- Search Functionality: Search tasks by keyword
-- Filter Functionality: Filter tasks by status/priority/date
-- Sort Functionality: Sort tasks by due date/priority/alphabetically
-
-### Advanced Features
-
-- Recurring Tasks: Auto-reschedule tasks (e.g., weekly)
-- Due Dates: Assign due dates to tasks
-- Reminders: Browser notifications for task reminders
-- Time-based alerts for overdue tasks
-
-### User Interface Features
-
-- Responsive Web Interface: Modern UI with mobile-first design
-- Task List Display: Clear and intuitive task presentation
-- Forms for Adding/Editing: User-friendly forms for task management
-- Real-time updates where possible for enhanced user experience
-
-## Testing Requirements
-
-### Backend Testing
-
-- API Integration Tests: Comprehensive tests for all endpoints using pytest
-- JWT Authentication Verification: Tests to ensure proper token validation
-- User Isolation Verification: Tests to ensure proper data isolation between users
-- Error Handling Tests: Tests for proper error responses and handling
-- Database Operation Tests: Tests for all database operations and transactions
-
-### Frontend Testing
-
-- Component Tests: Unit tests for individual UI components
-- Integration Tests: Tests for component interactions and workflows
-- End-to-End Tests: Tests for complete user workflows
-- Accessibility Tests: Tests to ensure the application is accessible
-
-### Quality Assurance
-
-- All tests must pass before any changes are merged
-- Code coverage requirements: Maintain minimum 80% coverage
-- Performance testing for critical user flows
-- Security testing for authentication and authorization
-
-## Deliverables
-
-### Code Deliverables
-
-- GitHub repository with monorepo structure as specified
-- Complete working application demonstrating all features
-- Proper documentation and setup instructions
-
-### Documentation Deliverables
-
-- Constitution.md at root level (this document)
-- README.md with setup instructions, including database connection to Neon
-- CLAUDE.md with instructions for using Claude Code
-- API documentation for backend endpoints
-- Setup and deployment guides
-
-### Specification Deliverables
-
-- Specs history folder with all specification files
-- Implementation plans and task breakdowns
-- Architecture decision records (ADRs) for significant decisions
-
-### Demo Deliverables
-
-- Working web app demonstrating all features: User auth, task management, isolation
-- Demo video link under 90 seconds showing key functionalities
-- Test suite demonstrating application reliability
-
-## Constraints
-
-### Development Constraints
-
-- **No Vibe Coding:** All code must be generated via refined specs
-- **Spec Refinement:** Refine specs iteratively until output is correct
-- **Future Compatibility:** Ensure compatibility with future phases (e.g., AI integration, deployment)
-- **Ethical AI Practices:** No biased features, secure data handling
-- **MCP Server Usage:** All GitHub commits/pushes must go through official GitHub MCP server
-
-### Technical Constraints
-
-- **Database:** Must use Neon Serverless PostgreSQL as specified
-- **Authentication:** Must use JWT-based authentication with Better Auth
-- **Frontend:** Must use Next.js 16+ with TypeScript and App Router
-- **Backend:** Must use FastAPI with Python 3.13+ and SQLModel
-- **API Endpoints:** Must implement the exact six (6) REST endpoints as specified: `GET /api/{user_id}/tasks`, `POST /api/{user_id}/tasks`, `GET /api/{user_id}/tasks/{id}`, `PUT /api/{user_id}/tasks/{id}`, `DELETE /api/{user_id}/tasks/{id}`, `PATCH /api/{user_id}/tasks/{id}/complete`
-- **Folder Structure:** Must follow the exact folder structure as specified in Principle 9
-- **MCP Compliance:** All development tools must use official MCP servers
-- **Reusable Intelligence:** Must create and use at least one reusable intelligence component in /specs/reusable-intelligence/
-
-### Quality Constraints
-
-- **Security:** All user data must be properly isolated and protected
-- **Performance:** Application must perform well under expected load
-- **Usability:** Interface must be responsive and intuitive
-- **Maintainability:** Code must follow clean code principles
-- **API Compliance:** All API endpoints must match the hackathon specification exactly
-- **Authentication Flow:** The authentication flow must match the described Better Auth <> FastAPI JWT integration exactly
-- **Code Generation:** All code must be generated via specs - no manual code editing allowed
-
-## Governance
-
-### Amendment Process
-
-This constitution may be amended through:
-
-1. Proposal of changes with clear rationale
-2. Review by project stakeholders
-3. Approval by majority consensus
-4. Update of version number according to semantic versioning
-5. Propagation of changes to dependent artifacts
-
-### 2. VERSION CONTROL & MCP SERVER COMPLIANCE (MANDATORY)
-
-- All Git operations (commits, pushes, PRs) MUST be performed through the **GitHub MCP Server**. Direct git CLI commands are PROHIBITED for project code.
-- The **Context7 MCP Server** MUST be used for all codebase context management, analysis, and understanding relationships across files.
-- The **Better Auth MCP Server** MUST be used for all authentication patterns, configurations, and JWT setup.
-- The **Better Auth npm library** (`npm install better-auth`) MUST be used for all authentication patterns, configurations, and JWT setup in the Next.js frontend. Note: Better Auth is a library, already mcp server connected.
-
-### Versioning Policy
-
-- **MAJOR** version increments for backward incompatible governance/principle removals
-- **MINOR** version increments for new principles or materially expanded guidance
-- **PATCH** version increments for clarifications, wording, typo fixes
-
-### Compliance Review
-
-Regular compliance reviews should be conducted to ensure:
-
-- Adherence to Spec-Driven Development principles
-- Consistency with architectural decisions
-- Proper implementation of security measures
-- Maintenance of code quality standards
-- MCP server compliance
-- Strict folder structure adherence
-- CI/CD pipeline compliance
-- Reusable intelligence implementation
-- Frontend and backend development standard compliance
->>>>>>> 002-fullstack-todo-auth
-
-
-
-<!--
-Sync Impact Report:
-Version change: 1.2.0 -> 1.3.0
-List of modified principles: None (added Phase III section only)
-Added sections: Phase III Mandatory Requirements
-Removed sections: None
-Templates requiring updates:
-  - .specify/templates/plan-template.md ⚠ pending
+  - .specify/templates/plan-template.md ⚠ p ending
   - .specify/templates/spec-template.md ⚠ pending
   - .specify/templates/tasks-template.md ⚠ pending
 Follow-up TODOs: None
@@ -618,16 +14,16 @@ Follow-up TODOs: None
 
 ## Version
 
-**Constitution Version:** 1.3.0
+**Constitution Version:** 1.4.0
 
 ## Ratification
 
 **Ratification Date:** 2025-12-11
-**Last Amended:** 2025-12-31
+**Last Amended:** 2026-01-27
 
 ## Project Overview
 
-This Constitution governs the Todo Evolution project: a full-stack web application that evolves the Todo app into a modern, multi-user system with authentication, database persistence, and a responsive interface. The app must support user registration, login, and isolated task lists per user. All development must follow Spec-Driven Development using Spec-Kit Plus, where specifications are refined iteratively to generate code without manual coding. The project now includes Phase III: AI-Powered Todo Chatbot functionality as specified below.
+This Constitution governs the Todo Evolution project: a full-stack web application that evolves the Todo app into a modern, multi-user system with authentication, database persistence, and a responsive interface. The app must support user registration, login, and isolated task lists per user. All development must follow Spec-Driven Development using Spec-Kit Plus, where specifications are refined iteratively to generate code without manual coding. The project now includes Phase III: AI-Powered Todo Chatbot functionality and Phase IV: Kubernetes Deployment as specified below.
 
 ## Guiding Principles
 
@@ -658,6 +54,8 @@ Follow clean code principles: modularity, separation of concerns, readability, a
 - Better Auth Setup: runs as Next.js API routes ✅
 - Token Management: Frontend stores JWT token ✅
 - Backend Verification: FastAPI middleware verifies JWT ✅
+- Container Orchestration: Minikube 1.32+, Helm 3.x, Kubernetes 1.28+ ✅
+- Health Monitoring: Liveness and readiness probes for all pods ✅
 
 Prioritize security in all implementations with JWT-based authentication. User data isolation must be absolute.
 
@@ -827,7 +225,6 @@ All secrets and configuration must be managed through environment variables acro
 
 **Rationale:** To prevent security breaches and maintain configuration flexibility across environments including AI services.
 
-
 ### FRONTEND CLAUDE.MD RULES (MANDATORY)
 
 The `/frontend/CLAUDE.md` file MUST contain these patterns for all frontend components including AI chatbot UI:
@@ -898,6 +295,7 @@ The `/backend/CLAUDE.md` file MUST contain these exact patterns for all backend 
 - **Containerization:** Docker for containerization when needed
 - **Spec-Driven Development:** Spec-Kit Plus for specification-driven development
 - **AI Integration:** OpenAI API for AI chatbot functionality
+- **Container Orchestration:** Minikube 1.32+, Helm 3.x, Kubernetes 1.28+
 
 ## Architecture
 
@@ -1040,6 +438,46 @@ The project follows a monorepo structure with clear separation across all phases
 - Performance testing for critical user flows
 - Security testing for authentication and authorization
 
+## Deployments
+
+### Phase IV Mandatory Requirements
+
+**Every Phase IV requirement is MANDATORY - no exceptions permitted.**
+
+**Kubernetes Deployment Infrastructure (All Required)**
+Every Kubernetes deployment component MUST be fully implemented:
+- **Minikube Cluster** - The application MUST run on a local Minikube Kubernetes cluster
+- **Helm Packaging** - Deployment MUST use Helm 3.x charts for packaging and versioning
+- **Pod Health Probes** - Every pod MUST have liveness and readiness probes configured
+- **Environment Configuration** - All environment variables MUST use ConfigMaps and Secrets
+- **Network Services** - Frontend MUST expose NodePort service, backend MUST use ClusterIP
+- **Automated Deployment** - A single deployment command MUST provision the entire stack
+- **AI Operations Tooling** - Integration with kubectl-ai, kagent, and Docker AI MUST be documented
+**Technology Stack (All Required)**
+
+- **Orchestration Platform:** Minikube version 1.32 or higher MUST provide the Kubernetes environment
+- **Chart Management:** Helm version 3.x MUST handle all application deployments
+- **Containerization:** Docker 24+ MUST run via Minikube's internal Docker daemon
+- **Image Registry:** Container images MUST build within Minikube (no external registries required)
+- **External Services:** PostgreSQL database (Neon) and object storage (Cloudflare R2) MUST stay external
+
+**Deployment Architecture (All Required)**
+
+- **Zero-State Pods:** Every pod MUST be stateless with no persistent volume claims
+- **Replica Scalability:** The system MUST allow horizontal pod autoscaling across replicas
+- **Automated Recovery:** Health probes MUST trigger automatic pod restarts on failure
+- **Secret Isolation:** Sensitive credentials MUST be isolated in Secrets, configuration in ConfigMaps
+- **Environment Injection:** All secrets MUST be injected at runtime, never hardcoded
+
+**Success Criteria (All Required)**
+- Frontend and backend containers MUST achieve Ready status within 120 seconds of deployment start
+- The frontend MUST respond to requests via NodePort within 5 seconds after pod readiness
+- Complete user workflows (authentication, chat interface, task operations) MUST function without errors
+- Liveness probes MUST identify failed pods and trigger restarts within 30 seconds
+- Deployment logs and pod environments MUST NOT expose secrets or API keys in plaintext
+- The automated deployment script MUST complete the full stack provisioning in under 10 minutes
+- Documentation MUST include functional examples of kubectl-ai, kagent, and Docker AI usage
+
 ## Deliverables
 
 ### Code Deliverables
@@ -1056,6 +494,7 @@ The project follows a monorepo structure with clear separation across all phases
 - CLAUDE.md with instructions for using Claude Code
 - API documentation for backend endpoints
 - Setup and deployment guides
+- Kubernetes deployment documentation with Helm chart specifications
 
 ### Specification Deliverables
 
@@ -1092,6 +531,7 @@ The project follows a monorepo structure with clear separation across all phases
 - **Folder Structure:** Must follow the exact folder structure as specified in Principle 9
 - **MCP Compliance:** All development tools must use official MCP servers
 - **Reusable Intelligence:** Must create and use at least one reusable intelligence component in /specs/reusable-intelligence/
+- **Phase IV Mandatory:** All Kubernetes deployment features are mandatory
 
 ### Quality Constraints
 
@@ -1103,6 +543,7 @@ The project follows a monorepo structure with clear separation across all phases
 - **Authentication Flow:** The authentication flow must match the described Better Auth <> FastAPI JWT integration exactly
 - **Code Generation:** All code must be generated via specs - no manual code editing allowed
 - **AI Requirements:** All Phase III AI chatbot requirements must be implemented as specified
+- **Kubernetes Requirements:** All Phase IV deployment requirements must be implemented as specified
 
 ## Phase III Mandatory Requirements
 
@@ -1163,4 +604,6 @@ Regular compliance reviews should be conducted to ensure:
 - Reusable intelligence implementation
 - Frontend and backend development standard compliance
 - Phase III AI chatbot requirements compliance
+- Phase IV Kubernetes deployment requirements compliance
+
 

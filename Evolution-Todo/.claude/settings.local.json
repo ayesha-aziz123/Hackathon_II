@@ -31,7 +31,14 @@
       "Bash(python -c \"\nfrom src.mcp_server.tools import add_task, list_tasks\nfrom sqlmodel import select\nfrom src.database.connection import get_session\nfrom src.models.user import User\n\n# Get a real user ID from the database\nsession = next\\(get_session\\(\\)\\)\nusers = session.exec\\(select\\(User\\)\\)\nuser = users.first\\(\\)\nif user:\n    print\\(f''Testing with user: {user.name}''\\)\n    # Test adding a task\n    result = add_task\\(user.id, ''Test task from endpoint verification'', ''This is a test'', ''medium''\\)\n    print\\(f''Add task result: {result}''\\)\n    \n    # Test listing tasks\n    list_result = list_tasks\\(user.id, ''all''\\)\n    print\\(f''List tasks result: Found {list_result[\"\"count\"\"]} tasks''\\)\n\nsession.close\\(\\)\n\")",
       "Bash(dir \"C:\\\\Users\\\\HP\\\\Desktop\\\\Hackathon-II\\\\Evolution-Todo\\\\phase-3-ai-chatbot\\\\frontend\")",
       "Bash(find . -name \"*.py\" -exec grep -l \"update.*title\\\\|title.*update\\\\|conversation.*title\" {} ;)",
-      "Bash(dir \"phase-3-ai-chatbot\")"
+      "Bash(dir \"phase-3-ai-chatbot\")",
+      "Bash(minikube version)",
+      "Bash(npx next build)",
+      "Bash(minikube delete --purge)",
+      "Bash(export GEMINI_API_KEY=\"AIzaSyBS4bq4nuXyqwbFx2W-v30NrILOPGwZOL8\")",
+      "Bash(export DATABASE_URL=\"postgresql://neondb_owner:npg_yDxLXQem9HF6@ep-raspy-hall-a1j5lrm2-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require\")",
+      "Bash(export BETTER_AUTH_SECRET=\"vXiet8Pcj3jO3bLRbcXPhCZwStWq2xMR\")",
+      "Bash(bash /c/Users/HP/Desktop/Hackathon-II/Evolution-Todo/phase-4-k8s-deployment/scripts/master-deploy.sh)"
     ]
   }
 }

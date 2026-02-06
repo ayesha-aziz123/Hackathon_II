@@ -208,3 +208,14 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+
+## Active Technologies
+- Kubernetes 1.28+ (006-k8s-deployment)
+- Minikube 1.32+ (006-k8s-deployment)
+- Helm 3.x (006-k8s-deployment)
+- Docker 24+ (006-k8s-deployment)
+- Neon PostgreSQL (006-k8s-deployment)
+
+## Recent Changes
+- 006-k8s-deployment: Added Kubernetes 1.28+ + Minikube 1.32+ + Helm 3.x + Docker 24+
+- 006-k8s-deployment: Added Neon PostgreSQL
