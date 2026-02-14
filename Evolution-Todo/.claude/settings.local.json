@@ -35,9 +35,9 @@
       "Bash(minikube version)",
       "Bash(npx next build)",
       "Bash(minikube delete --purge)",
-      "Bash(export GEMINI_API_KEY=\"AIzaSyBS4bq4nuXyqwbFx2W-v30NrILOPGwZOL8\")",
-      "Bash(export DATABASE_URL=\"postgresql://neondb_owner:npg_yDxLXQem9HF6@ep-raspy-hall-a1j5lrm2-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require\")",
-      "Bash(export BETTER_AUTH_SECRET=\"vXiet8Pcj3jO3bLRbcXPhCZwStWq2xMR\")",
+      "Bash(export GEMINI_API_KEY=\"")",
+      "Bash(export DATABASE_URL=\"")",
+      "Bash(export BETTER_AUTH_SECRET=\"")",
       "Bash(bash /c/Users/HP/Desktop/Hackathon-II/Evolution-Todo/phase-4-k8s-deployment/scripts/master-deploy.sh)"
     ]
   }
